@@ -1,0 +1,6 @@
+Install RPI Lite
+
+sudo apt update
+sudo apt upgrade -y
+sudo apt install mc -y
+
