@@ -1,6 +1,14 @@
 Install RPI Lite
 
-sudo apt update
+sudo apt update -y
 sudo apt upgrade -y
 sudo apt install mc -y
+sudo apt install htop -y
+sudo apt install fping -y
+sudo apt install gpsd -y
+sudo apt install jq -y
+
+mcedit /etc/default/gpsd
+  GPSD_OPTIONS="/dev/ttyACM0"
+sudo gpsd /dev/serial0 -F /var/run/gpsd.sock
 
