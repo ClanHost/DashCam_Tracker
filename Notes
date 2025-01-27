@@ -9,6 +9,8 @@ sudo apt install gpsd -y
 sudo apt install jq -y
 curl -fsSL https://tailscale.com/install.sh | sh
 sudo tailscale up
+sudo mkdir /DASHCAM
+sudo apt install ffmpeg -y
 
 mcedit /etc/default/gpsd
   GPSD_OPTIONS="/dev/ttyACM0"
@@ -34,3 +36,6 @@ WantedBy = multi-user.target
 
 sudo systemctl enable GPS
 sudo service GPS restart
+
+
+ ffmpeg -f alsa -channels 1 -i hw:3,0 -framerate 30 -video_size 1920x1080 -input_format mjpeg -i /dev/video0 -y -segment_time 00:10.000 -f segment out_%003d.mp4
