@@ -31,3 +31,6 @@ RestartSec = 5
 
 [Install]
 WantedBy = multi-user.target
+
+sudo systemctl enable GPS
+sudo service GPS restart
