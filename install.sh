@@ -9,7 +9,7 @@ sudo tailscale up
 sudo apt install ffmpeg -y
 sudo sed -i -e 's/GPSD_OPTIONS=""/GPSD_OPTIONS="\/dev\/ttyACM0"/g' /etc/default/gpsd
 #sudo gpsd /dev/serial0 -F /var/run/gpsd.sock
-curl -fsSL https://tailscale.com/install.sh | sh
+#curl -fsSL https://tailscale.com/install.sh | sh
 wget https://raw.githubusercontent.com/ClanHost/DashCam_Tracker/refs/heads/main/GPS.sh
 wget https://raw.githubusercontent.com/ClanHost/DashCam_Tracker/refs/heads/main/DASHCAM.sh
 chmod 777 GPS.sh
