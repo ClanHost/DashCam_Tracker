@@ -1,5 +1,3 @@
-Install RPI5 Lite
-
 sudo apt update -y
 sudo apt upgrade -y
 sudo apt install mc -y
