@@ -1,4 +1,4 @@
-Install RPI Lite
+Install RPI5 Lite
 
 sudo apt update -y
 sudo apt upgrade -y
@@ -7,19 +7,17 @@ sudo apt install htop -y
 sudo apt install fping -y
 sudo apt install gpsd -y
 sudo apt install jq -y
-curl -fsSL https://tailscale.com/install.sh | sh
 sudo tailscale up
-sudo mkdir /DASHCAM
 sudo apt install ffmpeg -y
+sudo sed -i -e 's/GPSD_OPTIONS=""/GPSD_OPTIONS="\/dev\/ttyACM0"/g' /etc/default/gpsd
+#sudo gpsd /dev/serial0 -F /var/run/gpsd.sock
+curl -fsSL https://tailscale.com/install.sh | sh
+sudo touch  /etc/systemd/system/GPS.service
+sudo touch  /etc/systemd/system/DASHCAM.service
 
-mcedit /etc/default/gpsd
-  GPSD_OPTIONS="/dev/ttyACM0"
-sudo gpsd /dev/serial0 -F /var/run/gpsd.sock
-
-> /etc/systemd/system/GPS.service
-
+sudo echo "
 [Unit]
-Description = GPS Logger
+Description = GPS
 Requires = systemd-user-sessions.service network.target sound.target
 After = multi-user.target
 
@@ -32,10 +30,27 @@ Restart = always
 RestartSec = 5
 
 [Install]
-WantedBy = multi-user.target
+WantedBy = multi-user.target" > /etc/systemd/system/GPS.service
 
 sudo systemctl enable GPS
-sudo service GPS restart
+sudo systemctl restart GPS
 
+sudo echo "
+[Unit]
+Description = DASHCAM
+Requires = systemd-user-sessions.service network.target sound.target
+After = multi-user.target
 
- ffmpeg -f alsa -channels 1 -i hw:3,0 -framerate 30 -video_size 1920x1080 -input_format mjpeg -i /dev/video0 -y -segment_time 00:10.000 -f segment out_%003d.mp4
+[Service]
+User = pi
+Group = pi
+Type = simple
+ExecStart = /home/pi/DASHCAM.sh
+Restart = always
+RestartSec = 5
+
+[Install]
+WantedBy = multi-user.target" > /etc/systemd/system/DASHCAM.service
+
+sudo systemctl enable DASHCAM
+sudo systemctl restart DASHCAM
