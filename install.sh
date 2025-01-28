@@ -12,6 +12,7 @@ sudo sed -i -e 's/GPSD_OPTIONS=""/GPSD_OPTIONS="\/dev\/ttyACM0"/g' /etc/default/
 #curl -fsSL https://tailscale.com/install.sh | sh
 wget https://raw.githubusercontent.com/ClanHost/DashCam_Tracker/refs/heads/main/GPS.sh
 wget https://raw.githubusercontent.com/ClanHost/DashCam_Tracker/refs/heads/main/DASHCAM.sh
+mkdir /home/pi/DASHCAM
 chmod 777 /home/pi/GPS.sh
 chmod 777 /home/pi/DASHCAM.sh
 
