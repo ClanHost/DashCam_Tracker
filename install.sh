@@ -34,7 +34,7 @@ Restart = always
 RestartSec = 5
 
 [Install]
-WantedBy = multi-user.target" > /etc/systemd/system/GPS.service
+WantedBy=multi-user.target"
 
 sudo systemctl enable GPS
 sudo systemctl restart GPS
@@ -53,7 +53,7 @@ Restart = always
 RestartSec = 5
 
 [Install]
-WantedBy = multi-user.target" > /etc/systemd/system/DASHCAM.service
+WantedBy=multi-user.target"
 
 sudo systemctl enable DASHCAM
 sudo systemctl restart DASHCAM
